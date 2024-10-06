@@ -123,15 +123,48 @@
                   Height: =26
                   Width: =Parent.Width
                   X: '=Parent.Width / 2 - Self.Width / 2 '
-    - btnFilter:
-        Control: GroupContainer
-        Variant: manualLayoutContainer
-        Properties:
-          BorderStyle: =BorderStyle.None
-          DropShadow: =DropShadow.None
-          Height: =60
-          Width: =50
+    - GroupBtn:
+        Control: Group
         Children:
+        - ExibirFiltroCP:
+            Control: Timer
+            Properties:
+              OnSelect: =UpdateContext({varFiltroShow:true})
+              OnTimerEnd: =Reset(OcultarFiltroCP)
+              Duration: =289
+              Text: =Blank()
+              BorderStyle: =BorderStyle.None
+              Fill: =RGBA(255, 255, 255, 0)
+              Height: =60
+              HoverBorderColor: =RGBA(255, 255, 255, 0)
+              HoverFill: =RGBA(255, 255, 255, 0)
+              PaddingBottom: =0
+              PaddingLeft: =0
+              PaddingRight: =0
+              PaddingTop: =0
+              PressedFill: =RGBA(255, 255, 255, 0)
+              Visible: =filters.Width<=10
+              Width: =50
+        - OcultarFiltroCP:
+            Control: Timer
+            Properties:
+              OnSelect: =
+              OnTimerEnd: =Reset(ExibirFiltroCP);UpdateContext({varFiltroShow:false})
+              Duration: =289
+              Text: =
+              BorderStyle: =BorderStyle.None
+              Color: =RGBA(0, 0, 0, 1)
+              Fill: =RGBA(255, 255, 255, 0)
+              Height: =60
+              HoverBorderColor: =RGBA(255, 255, 255, 0)
+              HoverFill: =RGBA(255, 255, 255, 0)
+              PaddingBottom: =0
+              PaddingLeft: =0
+              PaddingRight: =0
+              PaddingTop: =0
+              PressedFill: =RGBA(255, 255, 255, 0)
+              Visible: =filters.Width>=280
+              Width: =50
         - Icon6_5:
             Control: Classic/Icon
             Variant: Filter
@@ -155,42 +188,3 @@
               Width: =27
               X: =23
               Y: =30
-        - OcultarFiltroCP:
-            Control: Timer
-            Properties:
-              OnSelect: =
-              OnTimerEnd: =Reset(ExibirFiltroCP);UpdateContext({varFiltroShow:false})
-              Duration: =289
-              Text: =
-              BorderStyle: =BorderStyle.None
-              Color: =RGBA(0, 0, 0, 1)
-              Fill: =RGBA(255, 255, 255, 0)
-              Height: =60
-              HoverBorderColor: =RGBA(255, 255, 255, 0)
-              HoverFill: =RGBA(255, 255, 255, 0)
-              PaddingBottom: =0
-              PaddingLeft: =0
-              PaddingRight: =0
-              PaddingTop: =0
-              PressedFill: =RGBA(255, 255, 255, 0)
-              Visible: =filters.Width>=280
-              Width: =50
-        - ExibirFiltroCP:
-            Control: Timer
-            Properties:
-              OnSelect: =UpdateContext({varFiltroShow:true})
-              OnTimerEnd: =Reset(OcultarFiltroCP)
-              Duration: =289
-              Text: =Blank()
-              BorderStyle: =BorderStyle.None
-              Fill: =RGBA(255, 255, 255, 0)
-              Height: =60
-              HoverBorderColor: =RGBA(255, 255, 255, 0)
-              HoverFill: =RGBA(255, 255, 255, 0)
-              PaddingBottom: =0
-              PaddingLeft: =0
-              PaddingRight: =0
-              PaddingTop: =0
-              PressedFill: =RGBA(255, 255, 255, 0)
-              Visible: =filters.Width<=10
-              Width: =50
