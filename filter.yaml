@@ -12,13 +12,11 @@
           Text: =""
           BorderColor: =
           BorderStyle: =BorderStyle.None
-          Color: =RGBA(255, 255, 255, 1)
           DisabledBorderColor: =RGBA(0, 0, 0, 0)
           DisabledFill: =RGBA(0, 0, 0, 0)
           Fill: =RGBA(0, 0, 0, 0)
           Height: =Parent.Height
           HoverBorderColor: =
-          HoverColor: =RGBA(255, 255, 255, 1)
           HoverFill: =
           PressedBorderColor: =
           PressedFill: =
@@ -28,20 +26,20 @@
         Control: GroupContainer
         Variant: manualLayoutContainer
         Properties:
-          Fill: =cor.azul_claro
+          Fill: =RGBA(0,100,249,1)
           Height: =Parent.Height
           RadiusBottomLeft: =0
           RadiusBottomRight: =35
           RadiusTopLeft: =0
-          RadiusTopRight: |+
+          RadiusTopRight: |
             =35
-          Width: =If(varFiltroShow,If(ExibirFiltroCP_1.Value=289,OcultarFiltroCP_1.Duration-OcultarFiltroCP_1.Value,ExibirFiltroCP_1.Value,varFiltroShow))
+          Width: =If(varFiltroShow,If(ExibirFiltroCP.Value=289,OcultarFiltroCP.Duration-OcultarFiltroCP.Value,ExibirFiltroCP.Value,varFiltroShow))
         Children:
         - Dropdowns_filter_7:
             Control: GroupContainer
             Variant: manualLayoutContainer
             Properties:
-              Fill: =cor.verde
+              Fill: =RGBA(28,207,95,1)
               Height: =58
               RadiusBottomLeft: =15
               RadiusBottomRight: =15
@@ -57,13 +55,10 @@
                   Default: =First(selectDropsCP).drop1
                   Items: =[Blank(),"item1","item2","item3","item4"]
                   BorderStyle: =BorderStyle.None
-                  ChevronBackground: =cor.branco_transparente
-                  ChevronDisabledFill: =cor.verde
-                  ChevronFill: =cor.verde
-                  ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                  ChevronBackground: =RGBA(255,255,255,0.8)
+                  ChevronDisabledFill: =RGBA(28,207,95,1)
+                  ChevronFill: =RGBA(28,207,95,1)
                   Height: =Parent.Height-TextCanvas5_14.Height
-                  PressedColor: =RGBA(255, 255, 255, 1)
-                  SelectionColor: =RGBA(255, 255, 255, 1)
                   Width: =Parent.Width
                   Y: =26
             - TextCanvas5_14:
@@ -85,7 +80,7 @@
                 =ClearCollect(selectDropsCP,{drop1:Dropdown1_7.Selected.Value,drop2:Dropdown1_8.Selected.Value});
                 Reset(Dropdown1_7);
                 Reset(Dropdown1_8)
-              Color: =cor.branco_transparente
+              Color: =RGBA(255,255,255,0.8)
               Height: =21
               Icon: =Icon.Sort
               Width: =31
@@ -95,7 +90,7 @@
             Control: GroupContainer
             Variant: manualLayoutContainer
             Properties:
-              Fill: =cor.verde
+              Fill: =RGBA(28,207,95,1)
               Height: =58
               RadiusBottomLeft: =15
               RadiusBottomRight: =15
@@ -111,13 +106,10 @@
                   Default: =First(selectDropsCP).drop2
                   Items: =[Blank(),"item1","item2","item3","item4"]
                   BorderStyle: =BorderStyle.None
-                  ChevronBackground: =cor.branco_transparente
-                  ChevronDisabledFill: =cor.verde
-                  ChevronFill: =cor.verde
-                  ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                  ChevronBackground: =RGBA(255,255,255,0.8)
+                  ChevronDisabledFill: =RGBA(28,207,95,1)
+                  ChevronFill: =RGBA(28,207,95,1)
                   Height: =Parent.Height-TextCanvas5_13.Height
-                  PressedColor: =RGBA(255, 255, 255, 1)
-                  SelectionColor: =RGBA(255, 255, 255, 1)
                   Width: =Parent.Width
                   Y: =26
             - TextCanvas5_13:
@@ -155,38 +147,19 @@
             Control: Classic/Icon
             Variant: Add
             Properties:
-              OnSelect: |+
+              OnSelect: |
                 =UpdateContext({varFiltros:!varFiltros});
-                ClearCollect(
-                    TableFilterCP,
-                    Table(
-                        {
-                            Vendedor: Blank()
-                            }
-                        ),
-                    Distinct(
-                        ShowColumns(
-                            Filter(
-                                VarContratosCP,
-                                If(!IsBlank(Dropdown1.SelectedText.Value),Lower(Dropdown1.SelectedText.Value)=Lower(Mes),""=""),
-                                Value(Dropdown1_1.SelectedText.Value) = Ano
-                            ),
-                            Vendedor
-                        ), 
-                        Vendedor
-                    )
-                )
               Color: =If(filters.Width<=10,RGBA(0,0,0,1),RGBA(174,171,158,1))
               Height: =17
               Icon: =If(filters.Width>=289,Icon.HorizontalLine,Icon.Add)
               Width: =27
               X: =23
               Y: =30
-        - OcultarFiltroCP_1:
+        - OcultarFiltroCP:
             Control: Timer
             Properties:
               OnSelect: =
-              OnTimerEnd: =Reset(ExibirFiltroCP_1);UpdateContext({varFiltroShow:false})
+              OnTimerEnd: =Reset(ExibirFiltroCP);UpdateContext({varFiltroShow:false})
               Duration: =289
               Text: =
               BorderStyle: =BorderStyle.None
@@ -194,7 +167,6 @@
               Fill: =RGBA(255, 255, 255, 0)
               Height: =60
               HoverBorderColor: =RGBA(255, 255, 255, 0)
-              HoverColor: =RGBA(255, 255, 255, 1)
               HoverFill: =RGBA(255, 255, 255, 0)
               PaddingBottom: =0
               PaddingLeft: =0
@@ -203,19 +175,17 @@
               PressedFill: =RGBA(255, 255, 255, 0)
               Visible: =filters.Width>=280
               Width: =50
-        - ExibirFiltroCP_1:
+        - ExibirFiltroCP:
             Control: Timer
             Properties:
               OnSelect: =UpdateContext({varFiltroShow:true})
-              OnTimerEnd: =Reset(OcultarFiltroCP_1)
+              OnTimerEnd: =Reset(OcultarFiltroCP)
               Duration: =289
               Text: =Blank()
               BorderStyle: =BorderStyle.None
-              Color: =RGBA(255, 255, 255, 1)
               Fill: =RGBA(255, 255, 255, 0)
               Height: =60
               HoverBorderColor: =RGBA(255, 255, 255, 0)
-              HoverColor: =RGBA(255, 255, 255, 1)
               HoverFill: =RGBA(255, 255, 255, 0)
               PaddingBottom: =0
               PaddingLeft: =0
